@@ -8,13 +8,22 @@ datasource db {
 }
 
 model User {
-  id         String    @id @default(uuid())
+  id         String     @id @default(uuid())
   familyName String
   firstName  String
   pinHash    String
-  updatedAt  DateTime  @updatedAt
-  createdAt  DateTime  @default(now())
+  updatedAt  DateTime   @updatedAt
+  createdAt  DateTime   @default(now())
   dailyLogs  DailyLog[]
+  sessions   Session[]
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model DailyLog {

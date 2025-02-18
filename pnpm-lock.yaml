@@ -11,6 +11,9 @@ dependencies:
   '@prisma/client':
     specifier: 6.3.1
     version: 6.3.1(prisma@6.3.1)(typescript@5.7.3)
+  bcryptjs:
+    specifier: ^3.0.1
+    version: 3.0.1
 
 devDependencies:
   '@eslint/compat':
@@ -31,6 +34,9 @@ devDependencies:
   '@tailwindcss/vite':
     specifier: ^4.0.0
     version: 4.0.6(vite@6.1.0)
+  '@types/bcrypt':
+    specifier: ^5.0.2
+    version: 5.0.2
   eslint:
     specifier: ^9.18.0
     version: 9.20.1
@@ -823,6 +829,12 @@ packages:
       vite: 6.1.0
     dev: true
 
+  /@types/bcrypt@5.0.2:
+    resolution: {integrity: sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==}
+    dependencies:
+      '@types/node': 22.13.4
+    dev: true
+
   /@types/cookie@0.6.0:
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
     dev: true
@@ -833,6 +845,12 @@ packages:
 
   /@types/json-schema@7.0.15:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+    dev: true
+
+  /@types/node@22.13.4:
+    resolution: {integrity: sha512-ywP2X0DYtX3y08eFVx5fNIw7/uIv8hYUKgXoK8oayJlLnKcRfEYCxWMVE1XagUdVtCJlZT1AU4LXEABW+L1Peg==}
+    dependencies:
+      undici-types: 6.20.0
     dev: true
 
   /@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0)(eslint@9.20.1)(typescript@5.7.3):
@@ -1006,6 +1024,11 @@ packages:
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
     dev: true
+
+  /bcryptjs@3.0.1:
+    resolution: {integrity: sha512-iY+rRoR0bToRe8LTJkVX2gawo8gmgDQbiFsaKy8fVuG3WXekEQrjasfmWIbJxJHttEKPa+xPxbw3GROnJSmu0A==}
+    hasBin: true
+    dev: false
 
   /brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -2147,6 +2170,10 @@ packages:
     resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  /undici-types@6.20.0:
+    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
+    dev: true
 
   /uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
