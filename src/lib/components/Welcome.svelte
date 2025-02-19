@@ -1,8 +1,9 @@
 <script lang="ts">
 	import ProfileIcon from '$lib/components/ProfileIcon.svelte';
 	import CreateProfileButton from '$lib/components/CreateProfileButton.svelte';
+	import { enhance } from '$app/forms';
 
-	let { users } = $props();
+	let { users, form } = $props();
 
 	let selectedUser = $state(0);
 
@@ -26,16 +27,37 @@
 
 	<!-- Show PIN Input when a Profile is Selected -->
 	{#if selectedUser}
-		<div class="mt-6 flex flex-col items-center transition-all duration-300">
+		<form
+			method="POST"
+			class="mt-6 flex flex-col items-center transition-all duration-300"
+			use:enhance
+		>
+			<input type="text" name="userId" id="userId" hidden value={selectedUser} />
 			<input
 				type="password"
+				required
 				placeholder="Enter your PIN"
+				name="pin"
 				class="mt-4 w-48 rounded-md border border-black bg-white px-3 py-2 text-center text-lg
                        transition-all focus:ring-2 focus:ring-black
                        focus:outline-none dark:border-gray-600 dark:bg-black dark:text-white dark:focus:ring-white"
 			/>
-		</div>
+			<button
+				type="submit"
+				class="mt-6 w-48 rounded-md bg-black px-4 py-2 text-lg font-semibold text-white
+                   transition-all hover:cursor-pointer hover:bg-gray-800 focus:ring-2
+                   focus:ring-black focus:outline-none dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:focus:ring-white"
+			>
+				Login
+			</button>
+		</form>
 	{/if}
+
+	<div class="errors mt-5 flex justify-center text-center">
+		{#if form?.invalid}<p class="text-red-500">Letters are not allowed.</p>{/if}
+		{#if form?.incorrect}<p class="text-red-500">The PIN must be between 4 and 6 characters</p>{/if}
+		{#if form?.wrong}<p class="text-red-500">The PIN is wrong</p>{/if}
+	</div>
 
 	{#if users.length >= 3}
 		<CreateProfileButton hide={true} />

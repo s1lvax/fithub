@@ -2,7 +2,7 @@
 	import Welcome from '$lib/components/Welcome.svelte';
 	import type { PageProps } from './$types';
 
-	let { data }: PageProps = $props();
+	let { data, form }: PageProps = $props();
 </script>
 
-<Welcome users={data.users} />
+<Welcome users={data.users} {form} />

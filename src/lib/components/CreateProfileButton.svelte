@@ -8,7 +8,7 @@
 	};
 </script>
 
-<div class="mt-15 flex flex-col justify-center gap-8">
+<div class="mt-10 flex flex-col justify-center gap-8">
 	<button
 		onclick={handleNavigation}
 		disabled={hide}

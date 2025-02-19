@@ -1,7 +1,8 @@
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { prisma } from '$lib/prisma';
-import { hash } from 'bcryptjs';
+import { hashPin } from '$lib/utils/pin/hashPin';
+import { testPin } from '$lib/utils/pin/testPin';
 
 export const actions: Actions = {
 	default: async ({ request }) => {
@@ -23,16 +24,14 @@ export const actions: Actions = {
 
 		//test pin
 		const pinString = pin.toString();
-		if (!/^\d+$/.test(pinString)) {
-			return fail(400, { pin, invalid: true });
-		}
+		const validation = testPin(pinString);
 
-		if (pinString.length < 4 || pinString.length > 6) {
-			return fail(400, { pin, incorrect: true });
+		if (!validation.valid && validation.error) {
+			return fail(400, { pin, [validation.error]: true });
 		}
 
 		//hash pin
-		const hashedPin = await hash(pinString, 10);
+		const hashedPin = await hashPin(pinString);
 
 		//if all checks, try to create user.
 		try {
