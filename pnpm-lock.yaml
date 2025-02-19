@@ -20,6 +20,9 @@ dependencies:
   '@prisma/client':
     specifier: 6.3.1
     version: 6.3.1(prisma@6.3.1)(typescript@5.7.3)
+  svelte-heatmap:
+    specifier: ^1.0.2
+    version: 1.0.2
 
 devDependencies:
   '@eslint/compat':
@@ -2285,6 +2288,10 @@ packages:
       postcss-scss: 4.0.9(postcss@8.5.2)
       svelte: 5.20.0
     dev: true
+
+  /svelte-heatmap@1.0.2:
+    resolution: {integrity: sha512-qVsJj/Y/FQCjYJ2A7QU/v87FjGFjWqrTIb+qPumrudzH5w6D5WoubHF7Q2g38naJry4ADO1I0K29UuC86t5lJw==}
+    dev: false
 
   /svelte@5.20.0:
     resolution: {integrity: sha512-04HJfFLaTwTyEKdPm3vYGdaD/8ZAHcd9SEBufq0FZNIrdzJWdM1usVdm4KIlzzDfM5+aMzio6BBhpXPoPGuMjg==}
