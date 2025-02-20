@@ -26,7 +26,7 @@
 					</div>
 				</div>
 				<div class="mt-5 flex justify-center sm:mt-0">
-					<form method="POST">
+					<form method="POST" action="?/logout">
 						<button
 							type="submit"
 							class="flex items-center justify-center gap-2 rounded-md bg-black px-3 py-2 text-sm font-semibold text-white ring-1 shadow-xs hover:cursor-pointer dark:bg-white dark:text-black"

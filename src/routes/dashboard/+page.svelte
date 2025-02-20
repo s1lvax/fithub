@@ -6,7 +6,7 @@
 	import RecentLogs from '$lib/components/dashboard/RecentLogs.svelte';
 	import type { PageProps } from './$types';
 
-	let { data }: PageProps = $props();
+	let { data, form }: PageProps = $props();
 </script>
 
 <div class="min-h-full">
@@ -20,7 +20,7 @@
 					<Stats />
 				</div>
 				<div class="grid grid-cols-1 gap-4">
-					<DailyLog />
+					<DailyLog {form} />
 					<RecentLogs name={data.userData?.name || 'Name is missing?'} />
 				</div>
 			</div>

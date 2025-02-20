@@ -63,7 +63,7 @@
 			<div class="mt-6">
 				<a
 					href="#"
-					class="flex w-full items-center justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 dark:bg-black dark:text-gray-100 dark:ring-gray-600 dark:hover:bg-gray-800"
+					class="flex w-full items-center justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset dark:bg-black dark:text-gray-100 dark:ring-gray-600"
 					>View all</a
 				>
 			</div>

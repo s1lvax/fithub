@@ -1,12 +1,4 @@
 <nav class="flex space-x-4">
-	<a
-		href="#"
-		class="rounded-md px-3 py-2 text-sm font-medium text-white dark:text-gray-100"
-		aria-current="page">Today</a
-	>
-	<a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-100 dark:text-gray-300"
-		>Yesterday</a
-	>
 	<a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-100 dark:text-gray-300"
 		>Last 7 Days</a
 	>
