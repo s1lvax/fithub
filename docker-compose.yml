@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - DATABASE_URL=postgresql://fithub_user:securepassword123@db:5432/fithub
+    depends_on:
+      db:
+        condition: service_healthy
+    command: sh -c "npx prisma db push && node build"
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: fithub_user
+      POSTGRES_PASSWORD: securepassword123
+      POSTGRES_DB: fithub
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U fithub_user -d fithub']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:
