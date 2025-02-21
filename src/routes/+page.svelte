@@ -5,4 +5,4 @@
 	let { data, form }: PageProps = $props();
 </script>
 
-<Welcome users={data.users} {form} />
+<Welcome {data} {form} />

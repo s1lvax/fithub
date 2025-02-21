@@ -108,7 +108,7 @@
 						class="mx-auto mt-2 h-4 w-24 animate-pulse rounded bg-gray-200 dark:bg-gray-700"
 					></div>
 				{:else}
-					<span class="text-gray-900 dark:text-gray-100">{avgWeight ?? '?'}kg</span>
+					<span class="text-gray-900 dark:text-gray-100">{avgWeight ?? '?'}</span>
 					<span class="text-gray-600 dark:text-gray-400">Average Weight</span>
 				{/if}
 			</div>

@@ -2,23 +2,28 @@
 	import ProfileIcon from '$lib/components/ProfileIcon.svelte';
 	import CreateProfileButton from '$lib/components/CreateProfileButton.svelte';
 	import { enhance } from '$app/forms';
+	import type { PageProps } from '../../routes/$types';
 
-	let { users, form } = $props();
+	let { data, form }: PageProps = $props();
 
-	let selectedUser = $state(0);
+	let selectedUser = $state('');
 
-	const assignUser = (userId: number): void => {
+	const assignUser = (userId: string): void => {
 		selectedUser = userId;
 	};
 </script>
 
 <div class="flex min-h-screen flex-col items-center justify-center text-center">
 	<h1 class="mb-10 text-4xl font-extrabold md:text-7xl">Welcome to Openfit</h1>
-	<h1 class="mb-6 text-xl font-semibold">Choose your profile</h1>
+	{#if !data.users || data.users.length === 0}
+		<h1 class="mb-6 text-xl font-semibold">Create your first profile</h1>
+	{:else}
+		<h1 class="mb-6 text-xl font-semibold">Choose your profile</h1>
+	{/if}
 
 	<!-- Profile Icons Grid -->
 	<div class="flex justify-center gap-8">
-		{#each users as user}
+		{#each data.users as user}
 			<button type="button" class="icon" onclick={() => assignUser(user.id)}>
 				<ProfileIcon name={user.name} />
 			</button>
@@ -59,7 +64,7 @@
 		{#if form?.wrong}<p class="text-red-500">The PIN is wrong</p>{/if}
 	</div>
 
-	{#if users.length >= 3}
+	{#if data.users.length >= 3}
 		<CreateProfileButton hide={true} />
 	{:else}
 		<CreateProfileButton hide={false} />
