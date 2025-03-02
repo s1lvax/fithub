@@ -1,0 +1,4 @@
+https://localhost:4500 {
+  reverse_proxy app:3000
+  tls internal
+}

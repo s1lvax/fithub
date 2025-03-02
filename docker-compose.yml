@@ -28,5 +28,14 @@ services:
       timeout: 5s
       retries: 10
 
+  caddy:
+    image: caddy:2
+    ports:
+      - '4500:4500'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - app
+
 volumes:
   postgres_data:
