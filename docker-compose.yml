@@ -28,12 +28,13 @@ services:
       timeout: 5s
       retries: 10
 
-  caddy:
-    image: caddy:2
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     ports:
-      - '4500:4500'
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - '80:80' # HTTP (for redirection)
+      - '4500:4500' # HTTPS (main access point)
     depends_on:
       - app
 
