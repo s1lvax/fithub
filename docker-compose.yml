@@ -9,6 +9,7 @@ services:
       - '3000:3000'
     environment:
       - DATABASE_URL=postgresql://fithub_user:securepassword123@db:5432/fithub
+      - BODY_SIZE_LIMIT=1G
     depends_on:
       db:
         condition: service_healthy
