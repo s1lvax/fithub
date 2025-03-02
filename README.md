@@ -26,6 +26,12 @@ git clone https://github.com/s1lvax/fithub
 sudo docker-compose up -d --build
 ```
 
+4. Access Fithub on your browser
+
+```bash
+https://HOSTIP:4500
+```
+
 ## 💻Technologies
 
 - SvelteKit

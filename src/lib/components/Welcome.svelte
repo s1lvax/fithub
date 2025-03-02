@@ -14,7 +14,7 @@
 </script>
 
 <div class="flex min-h-screen flex-col items-center justify-center text-center">
-	<h1 class="mb-10 text-4xl font-extrabold md:text-7xl">Welcome to Openfit</h1>
+	<h1 class="mb-10 text-4xl font-extrabold md:text-7xl">Welcome to Fithub</h1>
 	{#if !data.users || data.users.length === 0}
 		<h1 class="mb-6 text-xl font-semibold">Create your first profile</h1>
 	{:else}
