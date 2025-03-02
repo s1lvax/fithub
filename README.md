@@ -29,7 +29,7 @@ sudo docker-compose up -d --build
 4. Access Fithub on your browser
 
 ```bash
-https://HOSTIP:4500
+http://HOSTIP:3000
 ```
 
 ## 💻Technologies
