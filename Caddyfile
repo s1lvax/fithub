@@ -1,4 +1,11 @@
+{
+  auto_https local
+}
+
+http://localhost:4500 {
+  redir https://localhost:4500{uri}
+}
+
 https://localhost:4500 {
   reverse_proxy app:3000
-  tls internal
 }
