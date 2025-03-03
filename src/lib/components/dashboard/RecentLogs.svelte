@@ -84,7 +84,7 @@
 									</div>
 									<div>
 										<a
-											href="#"
+											href={`/dashboard/log/${log.id}`}
 											class="inline-flex items-center rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 dark:bg-black dark:text-gray-100 dark:ring-gray-600 dark:hover:bg-gray-800"
 										>
 											View

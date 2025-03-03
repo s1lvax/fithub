@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SvelteHeatmap from 'svelte-heatmap';
 
-	let heatmapData = $state([]);
+	let heatmapData = $state<{ date: Date; value: number }[]>([]);
 	let isDarkMode = $state(false);
 
 	// Generate mock data for heatmap (last 12 months)
