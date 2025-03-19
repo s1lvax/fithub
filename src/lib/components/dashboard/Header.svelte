@@ -15,8 +15,6 @@
 					<Search />
 				</div>
 			</div>
-
-			<!-- Mobile Menu Button -->
 			<MobileMenu />
 		</div>
 	</div>

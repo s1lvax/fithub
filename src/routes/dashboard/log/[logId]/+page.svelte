@@ -13,7 +13,7 @@
 	const getDiffLabel = (diff: string | null) => {
 		if (!diff) return 'N/A';
 		const diffValue = parseFloat(diff);
-		return diffValue > 0 ? `+${diff}% more from current log` : `${diff}% less from current log`;
+		return diffValue > 0 ? `+${diff}%` : `${diff}%`;
 	};
 
 	$effect(() => {
@@ -38,65 +38,103 @@
 </script>
 
 {#if loading}
-	<div class="h-64 w-full animate-pulse rounded-3xl bg-gray-200 dark:bg-gray-700"></div>
+	<div class="h-64 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"></div>
 {:else if log}
-	<div class="bg-gray-900 py-24 sm:py-32 dark:bg-black">
-		<div class="mx-auto max-w-7xl px-6 lg:px-8">
+	<div class="bg-white py-12 sm:py-16 dark:bg-black">
+		<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
 			<!-- Back Button -->
-			<div class="mb-6">
+			<div class="mb-8">
 				<a
 					href="/dashboard"
-					class="rounded-lg border border-gray-200 bg-white px-4 py-2 text-white shadow-md dark:border-gray-700 dark:bg-black"
+					class="inline-flex items-center rounded-lg rounded-lg border border-gray-200 border-gray-200 bg-white p-6 px-4 py-2 text-sm font-medium text-gray-900 shadow-sm shadow-sm transition dark:border-gray-700 dark:bg-black dark:bg-black dark:text-white"
 				>
 					← Back to Dashboard
 				</a>
 			</div>
 
-			<div
-				class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-24 lg:mx-0 lg:max-w-none lg:grid-cols-2"
-			>
-				<!-- Image on the Left (Handle missing image) -->
-				<div class="lg:pr-4">
-					<div class="relative overflow-hidden rounded-3xl shadow-2xl">
-						{#if log.pic}
-							<img
-								class="h-full w-full rounded-3xl object-contain brightness-125 saturate-0"
-								src={log.pic}
-								alt="Log image"
-							/>
-						{:else}
-							<div
-								class="flex h-full w-full items-center justify-center text-xl font-semibold text-gray-300"
-							>
-								No Image Available
-							</div>
-						{/if}
-					</div>
+			<div class="space-y-8">
+				<!-- Image Section -->
+				<div class="overflow-hidden rounded-lg rounded-md">
+					{#if log.pic}
+						<!-- svelte-ignore a11y_img_redundant_alt -->
+						<img
+							class="h-auto w-full object-contain"
+							src={log.pic}
+							alt="Log image"
+							style="max-height: 500px;"
+						/>
+					{:else}
+						<div
+							class="flex h-64 items-center justify-center bg-gray-100 text-gray-400 dark:bg-gray-900"
+						>
+							<span class="text-lg font-medium">No Image Available</span>
+						</div>
+					{/if}
 				</div>
 
-				<!-- Stats Section with New Design -->
-				<div class="text-center text-white">
-					<h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white">
+				<!-- Stats Section -->
+				<div class="space-y-6 text-center">
+					<h1 class="text-3xl font-bold text-gray-900 dark:text-white">
 						{formatDate(log?.createdAt)}
 					</h1>
-					<dl class="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:gap-y-12 lg:grid-cols-2">
+					<div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+						<!-- Weight Stat -->
 						<div
-							class="mx-auto flex max-w-xs flex-col gap-y-2 rounded-xl border border-gray-200 p-4 dark:border-gray-700"
+							class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-black"
 						>
-							<dt class="text-lg text-gray-400">Weight ({getDiffLabel(weightDiff)})</dt>
-							<dd class="order-first text-3xl font-semibold tracking-tight text-white">
+							<div class="flex items-center justify-center space-x-2">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="h-6 w-6 text-gray-500 dark:text-gray-400"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
+									/>
+								</svg>
+								<dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Weight</dt>
+							</div>
+							<dd class="mt-2 text-2xl font-bold text-gray-900 dark:text-white">
 								{log.weight} kg/lbs
 							</dd>
+							<span class="mt-1 block text-sm text-gray-500 dark:text-gray-400">
+								{getDiffLabel(weightDiff)} from current
+							</span>
 						</div>
+						<!-- Body Fat Stat -->
 						<div
-							class="mx-auto flex max-w-xs flex-col gap-y-2 rounded-xl border border-gray-200 p-4 dark:border-gray-700"
+							class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-black"
 						>
-							<dt class="text-lg text-gray-400">Body Fat ({getDiffLabel(bodyFatDiff)})</dt>
-							<dd class="order-first text-3xl font-semibold tracking-tight text-white">
+							<div class="flex items-center justify-center space-x-2">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="h-6 w-6 text-gray-500 dark:text-gray-400"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+									/>
+								</svg>
+								<dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Body Fat</dt>
+							</div>
+							<dd class="mt-2 text-2xl font-bold text-gray-900 dark:text-white">
 								{log.bodyFat ? log.bodyFat + '%' : 'N/A'}
 							</dd>
+							<span class="mt-1 block text-sm text-gray-500 dark:text-gray-400">
+								{getDiffLabel(bodyFatDiff)} from current
+							</span>
 						</div>
-					</dl>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -47,6 +47,7 @@
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",
 		"@prisma/client": "6.3.1",
+		"chart.js": "^4.4.8",
 		"lodash": "^4.17.21",
 		"svelte-heatmap": "^1.0.2"
 	}

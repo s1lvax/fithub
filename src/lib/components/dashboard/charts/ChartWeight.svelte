@@ -1,95 +1,131 @@
 <script lang="ts">
-	$effect(() => {
-		const ctx = document.getElementById('weight').getContext('2d');
-		const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+	import Chart from 'chart.js/auto';
 
-		// Generate mock weight data (simulating small variations)
-		const generateWeightData = () => {
-			let weight = 72; // Starting weight in kg
-			return Array.from({ length: 12 }, () => (weight += (Math.random() - 0.5) * 2).toFixed(1));
+	let logs: { createdAt: Date; weight: number }[] = [];
+	let name: string = '';
+
+	// Function to format the date
+	const formatDate = (date: Date): string => {
+		const currentYear = new Date().getFullYear();
+		const logYear = date.getFullYear();
+
+		if (logYear === currentYear) {
+			// Format as MM.DD if the year is the same as the current year
+			return `${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getDate().toString().padStart(2, '0')}`;
+		} else {
+			// Format as YYYY.MM.DD if the year is different
+			return `${date.getFullYear()}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getDate().toString().padStart(2, '0')}`;
+		}
+	};
+
+	$effect(() => {
+		const fetchLogs = async () => {
+			try {
+				const response = await fetch('/api/logs/chart/weight');
+				const data = await response.json();
+
+				if (data.error) {
+					console.error(data.error);
+					return;
+				}
+
+				logs = data.logs;
+				name = data.name;
+
+				// Get the canvas element and check if it exists
+				const canvas = document.getElementById('weight');
+				if (!canvas) {
+					console.error('Canvas element not found');
+					return;
+				}
+
+				const ctx = (canvas as HTMLCanvasElement).getContext('2d');
+				if (!ctx) {
+					console.error('Could not get canvas context');
+					return;
+				}
+
+				const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+				new Chart(ctx, {
+					type: 'line',
+					data: {
+						labels: logs.map((log) => formatDate(new Date(log.createdAt))),
+						datasets: [
+							{
+								label: 'Weight (kg/lbs)',
+								data: logs.map((log) => log.weight),
+								borderColor: darkMode ? '#F3F4F6' : '#1F2937',
+								backgroundColor: darkMode ? 'rgba(56, 189, 248, 0.2)' : 'rgba(37, 99, 235, 0.2)',
+								borderWidth: 3,
+								pointRadius: 0.5,
+								pointBackgroundColor: darkMode ? '#38BDF8' : '#2563EB',
+								tension: 0.4,
+								fill: false
+							}
+						]
+					},
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						plugins: {
+							legend: {
+								labels: {
+									color: darkMode ? '#F3F4F6' : '#1F2937',
+									font: {
+										size: 11,
+										weight: 'bold'
+									}
+								}
+							},
+							tooltip: {
+								mode: 'index',
+								intersect: false
+							}
+						},
+						scales: {
+							x: {
+								ticks: {
+									color: darkMode ? '#F3F4F6' : '#1F2937',
+									font: {
+										size: 11
+									}
+								},
+								grid: {
+									color: darkMode ? '#374151' : '#E5E7EB'
+								}
+							},
+							y: {
+								beginAtZero: false,
+								ticks: {
+									color: darkMode ? '#F3F4F6' : '#1F2937',
+									font: {
+										size: 11
+									},
+									callback: (value: number | string) => {
+										if (typeof value === 'number') {
+											return value + ' kg';
+										}
+										return value;
+									}
+								},
+								grid: {
+									color: darkMode ? '#374151' : '#E5E7EB'
+								}
+							}
+						},
+						animation: {
+							duration: 1200,
+							easing: 'easeInOutQuad'
+						}
+					}
+				});
+			} catch (error) {
+				console.error('Failed to fetch logs:', error);
+			}
 		};
 
-		new Chart(ctx, {
-			type: 'line',
-			data: {
-				labels: [
-					'Jan',
-					'Feb',
-					'Mar',
-					'Apr',
-					'May',
-					'Jun',
-					'Jul',
-					'Aug',
-					'Sep',
-					'Oct',
-					'Nov',
-					'Dec'
-				],
-				datasets: [
-					{
-						label: 'Weight (kg)',
-						data: generateWeightData(),
-						borderColor: darkMode ? '#F3F4F6' : '#1F2937',
-						backgroundColor: darkMode ? 'rgba(56, 189, 248, 0.2)' : 'rgba(37, 99, 235, 0.2)',
-						borderWidth: 3,
-						pointRadius: 0.5,
-						pointBackgroundColor: darkMode ? '#38BDF8' : '#2563EB',
-						tension: 0.4,
-						fill: false
-					}
-				]
-			},
-			options: {
-				responsive: true,
-				maintainAspectRatio: false,
-				plugins: {
-					legend: {
-						labels: {
-							color: darkMode ? '#F3F4F6' : '#1F2937',
-							font: {
-								size: 11,
-								weight: 'bold'
-							}
-						}
-					},
-					tooltip: {
-						mode: 'index',
-						intersect: false
-					}
-				},
-				scales: {
-					x: {
-						ticks: {
-							color: darkMode ? '#F3F4F6' : '#1F2937',
-							font: {
-								size: 11
-							}
-						},
-						gridLines: {
-							color: darkMode ? '#374151' : '#E5E7EB'
-						}
-					},
-					y: {
-						beginAtZero: false,
-						ticks: {
-							color: darkMode ? '#F3F4F6' : '#1F2937',
-							font: {
-								size: 11
-							},
-							callback: (value) => value + ' kg'
-						},
-						gridLines: {
-							color: darkMode ? '#374151' : '#E5E7EB'
-						}
-					}
-				},
-				animation: {
-					duration: 1200,
-					easing: 'easeInOutQuad'
-				}
-			}
-		});
+		fetchLogs();
 	});
 </script>
 

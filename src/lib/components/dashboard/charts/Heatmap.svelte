@@ -4,21 +4,29 @@
 	let heatmapData = $state<{ date: Date; value: number }[]>([]);
 	let isDarkMode = $state(false);
 
-	// Generate mock data for heatmap (last 12 months)
+	// Fetch heatmap data from the API
 	$effect(() => {
-		const startDate = new Date();
-		startDate.setFullYear(startDate.getFullYear() - 1);
+		const fetchHeatmapData = async () => {
+			try {
+				const response = await fetch('/api/logs/chart/heatmap');
+				const data = await response.json();
 
-		const data = [];
-		for (let d = new Date(startDate); d <= new Date(); d.setDate(d.getDate() + 1)) {
-			data.push({
-				date: new Date(d),
-				value: Math.floor(Math.random() * 10) // Random intensity (0-10)
-			});
-		}
+				if (data.error) {
+					console.error(data.error);
+					return;
+				}
 
-		// Assign to reactive state
-		heatmapData = data;
+				// Assign fetched data to reactive state
+				heatmapData = data.heatmapData.map((entry: { date: string; value: number }) => ({
+					date: new Date(entry.date),
+					value: entry.value
+				}));
+			} catch (error) {
+				console.error('Failed to fetch heatmap data:', error);
+			}
+		};
+
+		fetchHeatmapData();
 
 		// Detect dark mode
 		isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -54,8 +62,8 @@
 			'Dec'
 		]}
 		colors={isDarkMode
-			? ['#F9FAFB', '#E5E7EB', '#D1D5DB', '#9CA3AF', '#6B7280']
-			: ['#111827', '#1F2937', '#374151', '#4B5563', '#6B7280']}
-		emptyColor={isDarkMode ? '#1F2937' : '#F3F4F6'}
+			? ['#1F2937', '#374151', '#4B5563', '#6B7280', '#9CA3AF'] // Dark mode colors
+			: ['#F3F4F6', '#E5E7EB', '#D1D5DB', '#9CA3AF', '#6B7280']}
+		emptyColor={isDarkMode ? '#111827' : '#F9FAFB'}
 	/>
 </div>
