@@ -59,7 +59,7 @@
 						<!-- svelte-ignore a11y_img_redundant_alt -->
 						<img
 							class="h-auto max-h-[500px] w-full object-contain"
-							src={`http://cdn:80/${log.pic}`}
+							src={`/api/images/${log.pic}`}
 							alt="Log image"
 						/>
 					{:else}
