@@ -46,7 +46,7 @@
 			<div class="mb-8">
 				<a
 					href="/dashboard"
-					class="inline-flex items-center rounded-lg rounded-lg border border-gray-200 border-gray-200 bg-white p-6 px-4 py-2 text-sm font-medium text-gray-900 shadow-sm shadow-sm transition dark:border-gray-700 dark:bg-black dark:bg-black dark:text-white"
+					class="inline-flex items-center rounded-lg border border-gray-200 bg-white p-6 px-4 py-2 text-sm font-medium text-gray-900 shadow-sm transition dark:border-gray-700 dark:bg-black dark:text-white"
 				>
 					← Back to Dashboard
 				</a>
@@ -54,12 +54,12 @@
 
 			<div class="space-y-8">
 				<!-- Image Section -->
-				<div class="overflow-hidden rounded-lg rounded-md">
+				<div class="overflow-hidden rounded-lg">
 					{#if log.pic}
 						<!-- svelte-ignore a11y_img_redundant_alt -->
 						<img
 							class="h-auto w-full object-contain"
-							src={log.pic}
+							src={`http://localhost:4000/${log.pic}`}
 							alt="Log image"
 							style="max-height: 500px;"
 						/>

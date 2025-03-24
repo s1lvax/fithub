@@ -5,8 +5,6 @@ import path from 'path';
 import fs from 'fs/promises';
 
 export const POST: RequestHandler = async ({ request, locals }) => {
-	console.log('CREATE TRIGGERED');
-
 	// Ensure user is authenticated
 	if (!locals.session || !locals.session.userId) {
 		return json({ error: 'Unauthorized' }, { status: 401 });
@@ -50,7 +48,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 		// Generate a unique filename
 		const fileName = `progress_${Date.now()}${extension}`;
-		const uploadDir = 'static/uploads';
+		const uploadDir = './uploads';
 
 		// Ensure the uploads directory exists
 		await fs.mkdir(uploadDir, { recursive: true });
@@ -59,7 +57,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const filePath = path.join(uploadDir, fileName);
 		const buffer = Buffer.from(await picture.arrayBuffer());
 		await fs.writeFile(filePath, buffer);
-		savedFilePath = `/uploads/${fileName}`;
+		savedFilePath = `${fileName}`;
 	}
 
 	// Create DailyLog entry in the database
@@ -73,7 +71,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			}
 		});
 
-		console.log('Daily log submitted');
+		console.log('Daily log submitted with file path:', savedFilePath);
 		return json({ success: true });
 	} catch (error) {
 		console.error('Error creating log:', error);
