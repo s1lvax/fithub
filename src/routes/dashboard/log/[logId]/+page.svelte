@@ -58,10 +58,9 @@
 					{#if log.pic}
 						<!-- svelte-ignore a11y_img_redundant_alt -->
 						<img
-							class="h-auto w-full object-contain"
-							src={`http://localhost:4000/${log.pic}`}
+							class="h-auto max-h-[500px] w-full object-contain"
+							src={`http://cdn:80/${log.pic}`}
 							alt="Log image"
-							style="max-height: 500px;"
 						/>
 					{:else}
 						<div
